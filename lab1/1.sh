@@ -1,25 +1,44 @@
 #!/bin/bash
 
-if ! [ -z "$1" ]; then
-echo "target directory:"$1
-if ! [ -d $1 ]; then
-mkdir $1
+
+
+echo "Введите имя начальной директории"
+read A
+echo "Введите шаблон имени дочерних директорий"
+read B
+echo "Введите количество дочерних директорий"
+read C
+echo "Введите шаблон имени вложенных директорий"
+read D
+echo "Введите количество вложенных директорий"
+read E
+echo "Введите шаблон имени файлов"
+read F
+echo "Введите количество файлов"
+read G
+
+
+if ! [ -z $A ]; then
+A="./"
+echo "Начало: "$A
+if ! [ -d $A ]; then
+mkdir $A
 fi
-cd $1
+cd $A
 fi
 
 
-for ((i = 1; i <= 5; i++))
+for ((i = 1; i <= $C; i++))
 do
-        mkdir "folder"$i
-        cd "folder"$i
-        for ((j = 1; j <= 10; j++))
+        mkdir $B$i
+        cd $B$i
+        for ((j = 1; j <= $E; j++))
         do
-                mkdir "subfolder"$j
-                cd "subfolder"$j
-                for ((k = 1; k <= 20; k++))
+                mkdir $D$j
+                cd $D$j
+                for ((k = 1; k <= $G; k++))
                 do
-                        touch "file"$k
+                        touch $F$k
                 done
                 cd ../
         done
