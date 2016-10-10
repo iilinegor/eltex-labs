@@ -1,24 +1,24 @@
 #!/bin/bash
-user=${HOME:6}
+# user=${HOME:6}
 actions="Выберите действие:\n[1] Добавить будильник\n[2] Удалить будильник&\n[3] Посмотреть существующие будильники\n"
 clear
 
 
-if [ -d /var/spool/cron/crontabs/ ];
-then
-	cd /var/spool/cron/crontabs/
-else
-	echo "Проверьте наличие утилиты cron"
-fi
+# if [ -d /var/spool/cron/crontabs/ ];
+# then
+# 	cd /var/spool/cron/crontabs/
+# else
+# 	echo "Проверьте наличие утилиты cron"
+# fi
 
 
-if ! [ -f $user ];
-then
-	touch $user
-	chown $user $user
-	chgrp crontab $user
-	chmod 600 $user
-fi
+# if ! [ -f $user ];
+# then
+# 	touch $user
+# 	chown $user $user
+# 	chgrp crontab $user
+# 	chmod 600 $user
+# fi
 
 echo -e $actions
 
@@ -59,27 +59,24 @@ case "$B" in
 				if [ -z $song ]; then
 					song="~/1.mp4"
 				fi
-
 			echo "Будильник добавлен на $h:$m"
-			if (( ${#m} < 2)); then
-				echo " $m $h * * * mplayer $song #as" >> $user
-			else
-				echo "$m $h * * * mplayer $song #as" >> $user
-			fi
+			crontab -u $USER -l > ./tmp
+			echo "$m $h * * * mplayer $song #as" >> ./tmp
+			crontab -u $USER ./tmp
 
-			cat $user | grep -v "# " > tmp
-			echo -n > $user
-			crontab -u $user tmp
-			echo -n > tmp
+			# cat $user | grep -v "# " > tmp
+			# echo -n > $user
+			# crontab -u $user tmp
+			# echo -n > tmp
 			;; 
   "2"   )  
 			i=0
-			cat $user | grep -v "# " | grep "#as" > list.tmp
+			crontab -u $USER -l | grep -v "# " | grep "#as" > ./list.tmp
 			while read line
 			do
 			echo "[$i] Будильник на ${line:3:2}:${line:0:2}"
 			((i++))
-			done < list.tmp
+			done < ./list.tmp
 
 			echo "Введите номер будильника"
 			read C
@@ -87,30 +84,28 @@ case "$B" in
 			clear
 
 			i=0
-			echo -n > tmp
-
+			echo -n > ./tmp
 			while read line
 			do
 			if ! [ $i -eq $C ]
 			then
 				echo "[$i] Будильник на ${line:3:2}:${line:0:2}"
-				echo "$line" >> tmp
+				echo "$line" >> ./tmp
 			else
 				echo "[*] Будильник на ${line:3:2}:${line:0:2}"
 			fi
 				((i++))
-			done < list.tmp
-			cat $user | grep -v "#as" | grep -v "# "> list.tmp
-			cat tmp >> list.tmp
-			crontab -u $user list.tmp
-			echo -n > tmp
+			done < ./list.tmp
+			crontab -u $USER -l | grep -v "#as" | grep -v "# "> ./list.tmp
+			cat ./tmp >> ./list.tmp
+			crontab -u $USER ./list.tmp
 			;;
-  "3"   )  cat $user | grep -v "# " | grep "#as" > tmp
+  "3"   )   crontab -u $USER -l | grep -v "# " | grep "#as" > ./tmp
 			while read line
 			do
 				echo "Будильник на ${line:3:2}:${line:0:2}"
-			done < tmp
+			done < ./tmp
 			;;
 esac
-	rm -rf tmp list.tmp count	
+	rm -rf ./tmp ./list.tmp ./count	
 done
