@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 user=${HOME:6}
 actions="Выберите действие:\n[1] Добавить будильник\n[2] Удалить будильник&\n[3] Посмотреть существующие будильники\n"
 clear
@@ -34,6 +34,13 @@ case "$B" in
 			do
 				echo "Введите час сигнала будильника"
 				read h
+				if [ -z $h ]; then
+					h=7
+				fi
+
+				if [ ${#h} -eq 1 ]; then
+					h=0$h
+				fi
 			done
 			while (( $m > 59 || $m < 0));
 			do
@@ -41,6 +48,10 @@ case "$B" in
 				read m
 				if [ -z $m ]; then
 					m=0
+				fi
+
+				if [ ${#m} -eq 1 ]; then
+					m=0$m
 				fi
 			done
 			echo "Введите файл сигнала будильника (по умолчанию ~/1.mp4)"
@@ -50,7 +61,6 @@ case "$B" in
 				fi
 
 			echo "Будильник добавлен на $h:$m"
-			d=1
 			if (( ${#m} < 2)); then
 				echo " $m $h * * * mplayer $song #as" >> $user
 			else
@@ -67,7 +77,7 @@ case "$B" in
 			cat $user | grep -v "# " | grep "#as" > list.tmp
 			while read line
 			do
-			echo "[$i] Будильник на ${line:2:2}:${line:0:2}"
+			echo "[$i] Будильник на ${line:3:2}:${line:0:2}"
 			((i++))
 			done < list.tmp
 
@@ -83,10 +93,10 @@ case "$B" in
 			do
 			if ! [ $i -eq $C ]
 			then
-				echo "[$i] Будильник на ${line:2:2}:${line:0:2}"
+				echo "[$i] Будильник на ${line:3:2}:${line:0:2}"
 				echo "$line" >> tmp
 			else
-				echo "[*] Будильник на ${line:2:2}:${line:0:2}"
+				echo "[*] Будильник на ${line:3:2}:${line:0:2}"
 			fi
 				((i++))
 			done < list.tmp
@@ -98,7 +108,7 @@ case "$B" in
   "3"   )  cat $user | grep -v "# " | grep "#as" > tmp
 			while read line
 			do
-				echo "Будильник на ${line:2:2}:${line:0:2}"
+				echo "Будильник на ${line:3:2}:${line:0:2}"
 			done < tmp
 			;;
 esac
