@@ -3,7 +3,7 @@
 #include <string.h>
 
 int inp_str(char*);
-void out_str(char* string, int length, int number);
+//void out_str(char* string, int length, int number);
 
 int inp_str(char* string) {
     return (int)(strlen(string));

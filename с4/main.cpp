@@ -1,48 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+//#include <stdlib.h>
+#include <string.h>
+#include <iostream>
 
 
-struct d {
-    char* name;
-    int year;
-    int cost;
-    int count;
-};
 
-int campdet(const void *a, const void *b) {
-    d aa = *((d*) a);
-    d bb = *((d*) b);
-    return aa.cost - bb.cost;
-};
-
-int main(int argc, char* argv[]) {
-    srand(time(NULL));
+int main(int argc,char* argv[]) {
     int i = 0;
-    d details[10];
-    char* names[10] = { "Гайка", "Шуруп", "Винт", "Фланец", "Прокладка", "Манометр", "Клапан", "Индикаторная лампа", "Вентель", "Сетка" };
+    char line[255];
 
-    printf("\n\t*** До сортировки ***\n\n");
-    printf("|  Год:  |  Цена:  |  Количество: | Наименование:\n");
-    printf("-------------------------------------------------------\n");
+    char ar[255][3] = {"asdasd", "/home/iilinegor/ClionProjects/lab4/text.in", "f"};
 
-    for ( i = 0; i < 10; i++ ) {
-        details[i].name = names[i];
-        details[i].year = 1950 + rand() % 67;
-        details[i].cost = 100 + rand() % 20 * 100;
-        details[i].count = rand() % 50;
-        printf("|  %d  |  %4dр. | %6dшт.    | %s\n", details[i].year, details[i].cost, details[i].count, details[i].name);
-    };
+    FILE *fp;
+    fp = fopen((char*) ar[255][1], "r"); // открыли файл
 
-    qsort(details, 10, sizeof(details[0]), campdet);
-
-    printf("\n\t*** После сортировки ***\n\n");
-    printf("|  Год:  |  Цена:  |  Количество: | Наименование:\n");
-    printf("-------------------------------------------------------\n");
-
-    for ( i = 0; i < 10; i++ ) {
-        printf("|  %d  |  %4dр. | %6dшт.    | %s\n", details[i].year, details[i].cost, details[i].count, details[i].name);
-    };
-
+    while (!feof(fp)){
+        fgets(line, 255, fp);
+        if ( strstr(line, (char*) ar[255][2]))
+        printf("%s", line);
+    }
+    fclose(fp);
     return 0;
 }
