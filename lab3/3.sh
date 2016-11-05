@@ -167,13 +167,13 @@ case "$B" in
 				  "1"   )
 							echo "Введите комментарий"
 							read line
-							git commit -m `${line}`
+							git commit -m "${line}"
 						;;
 
 				  "2"   )
 							echo "Введите новый комментарий"
 							read line
-							git commit -m `${line}`
+							git commit -m "${line}"
 						;;
 
 				  "3"   )
