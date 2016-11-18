@@ -1,5 +1,5 @@
-lib: mylib.cpp
-	gcc -shared -o mylib.so mylib.cpp
+player: player.cpp 
+	gcc -o player player.cpp 
 
 main: main.cpp
-	gcc -o main main.cpp -L. mylib.so
+	gcc -o main main.cpp

@@ -5,7 +5,6 @@ int main(int argc,char* argv[]) {
     int i = 0;
     char line[255];
     FILE *fp;
-
     fp = fopen(argv[1], "r");
     while (!feof(fp)){
         fgets(line, 255, fp);
