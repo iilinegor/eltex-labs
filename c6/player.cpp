@@ -2,21 +2,38 @@
 #include <stdlib.h>
 #include <ctime>
 
+int map[255];
+
 struct options {
 		int size;
 		int life;
 		int sleep;
 	};
 
+void setMap(int size) {
+	FILE *fp;
+	fp = fopen("map", "w");
+			for (int i = 0; i < size; i++){
+		        // fscanf(fp, "%d", map+i);
+		        for (int j = 0; j < size; j++) {
+			        fprintf(fp, "%d ", map[j*size +i]);
+			        printf("%3d", map[j*size +i]);
+		    	}
+		    	fprintf(fp, "\n");
+		    	printf("\n");
+		    }
+    fclose(fp);
+}
+
 
 int main(int argc, char* argv[]) {
 	
 	srand ( time(NULL) );
 
-	int map[255];
-	int x = rand()%16,
-		y = rand()%16,
-		size = 18,
+	
+	int size = 4,
+		x = rand()%size,
+		y = rand()%size,
 		life = 19,
 		sleep = 100,
 		dir = 0;
@@ -37,7 +54,7 @@ int main(int argc, char* argv[]) {
 	fp = fopen("map", "r");
 			for (int i = 0; i < size*size; i++){
 		        fscanf(fp, "%d", map+i);
-		        printf("%d\n", map[i]);
+		        // printf("%d\n", map[i]);
 		    }
     fclose(fp);
 
@@ -45,26 +62,36 @@ int main(int argc, char* argv[]) {
     	case 0:
     		if (y < size) 
     			// gameover! 
-    			return life;
+    			{printf("done!");
+    			    			return life;}
     		else {
-
+    			map[ y*size + x ] = 0;
+    			life += map[ (y - 1) * size + x ];
+    			map[ (y - 1) * size + x ] = -1 * life;
     		}
     		break;
 
     	case 1:
-    		if (y > (size - 2) * (size - 1)) 
+    		if (y >= (size - 2) * (size - 1)) 
     			// gameover! 
-    			return life;
+    			{printf("done!");
+    			    			return life;}
     		else {
-
+    			map[ y*size + x ] = 0;
+    			life += map[ (y + 1) * size + x ];
+    			map[ (y + 1) * size + x ] = -1 * life;
     		}
     		break;
 
     	case 2:
     		if (x = 0) 
     			// gameover! 
-    			return life;
+    			{printf("done!");
+    			    			return life;}
     		else {
+    			map[ y*size + x ] = 0;
+    			life += map[ y*size + x - 1 ];
+				map[ y*size + x - 1 ] = -1 * life;    			
 
     		}
     		break;
@@ -72,13 +99,20 @@ int main(int argc, char* argv[]) {
     	case 3:
     		if (x = (size - 1) * (size - 1)) 
     			// gameover! 
-    			return life;
+    			{printf("done!");
+    			    			return life;}
     		else {
-
+    			map[ y*size + x ] = 0;
+    			life += map[ y*size + x + 1 ];
+				map[ y*size + x + 1 ] = -1 * life;
     		}
     		break;
-
     }
+
+    setMap(size);
+
+    if ( life <= 0 )
+    	printf("Bang-bang you'r dead");
 
 
 	return 0;
