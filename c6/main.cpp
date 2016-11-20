@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	    		fprintf(fp, "%3d ", rand()%19-9);
     		fprintf(fp, "\n");
     	}
-
+    
     	// for (int i = 0; i <= players; i++)
 		   //  fprintf(fp, "[%d, %d]        ", rand()%arg, rand()%arg);
 
