@@ -3,7 +3,7 @@
 #include <ctime>
 
 int main(int argc, char* argv[]) {
-	int arg = 18;
+	int arg = 4;
 	int players = 4;
 
 	struct options {
@@ -25,11 +25,11 @@ int main(int argc, char* argv[]) {
     	for (int i = 0; i < arg; i++){
 	    	for (int j = 0; j < arg; j++)
 	    		fprintf(fp, "%3d ", rand()%19-9);
-    		fprintf(fp, "\n\n");
+    		fprintf(fp, "\n");
     	}
 
-    	for (int i = 0; i <= players; i++)
-		    fprintf(fp, "[%d, %d]        ", rand()%arg, rand()%arg);
+    	// for (int i = 0; i <= players; i++)
+		   //  fprintf(fp, "[%d, %d]        ", rand()%arg, rand()%arg);
 
     fclose(fp);
 	return 0;
