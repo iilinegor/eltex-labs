@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
+#include <unistd.h>
+#include <sys/types.h>
 
 int main(int argc, char* argv[]) {		// arg: size 
 	
-	srand ( time(NULL) );
+	srand ( getpid() );
 
 	if (argc == 1){
 		printf("Usage: player [size]\n");
@@ -27,11 +29,11 @@ int main(int argc, char* argv[]) {		// arg: size
 // 2 - left
 // 3 - right
 
-	dir = (abs(dirx) > abs(diry)) ? ((dirx >= 0) ? 3 : 2) : ((diry >= 0) ? 1 : 0);
+	dir = (abs(dirx) >= abs(diry)) ? ((dirx >= 0) ? 3 : 2) : ((diry >= 0) ? 1 : 0);
 
 	// printf("[%d, %d]: direction %d\n\n", x, y, dir);
 
-	for (int l = 0; l < 4; l++ ) {
+	for (int l = 0; l < size; l++ ) {
 		FILE *fp;
 		fp = fopen("map", "r");
 				for (int i = 0; i < size; i++){
@@ -45,8 +47,8 @@ int main(int argc, char* argv[]) {		// arg: size
 	    switch (dir) {
 	    	case 0:
 	    		if (y == 0){
-	    			// printf("done!\n");
-	    			exit(life);
+	    			printf("Done! With score %d\n", life);
+	    			return (life);
 	    		}
 	    		else {
 	    			map[x][y] = 0;
@@ -58,8 +60,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 1:
 	    		if (y == size - 1){
-	    			// printf("done!\n");
-	    			exit(life);
+	    			printf("Done! With score %d\n", life);
+	    			return (life);
 	    		}
 	    		else {
 	    			map[x][y] = 0;
@@ -71,8 +73,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 2:
 	    		if (x == 0){
-	    			// printf("done!\n");
-	    			exit(life);
+	    			printf("Done! With score %d\n", life);
+	    			return (life);
 	    		}
 	    		else {
 	    			map[x][y] = 0;
@@ -84,8 +86,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 3:
 	    		if (x == (size - 1)){
-	    			// printf("done!\n");
-	    			exit(life);
+	    			printf("Done! With score %d\n", life);
+	    			return (life);
 	    		}
 	    		else {
 	    			map[x][y] = 0;
@@ -96,14 +98,14 @@ int main(int argc, char* argv[]) {		// arg: size
 	    		break;
 	    }
 
-		printf("     VVVV\n\n");
+		// printf("     VVVV\n\n");
 
 
 	    fp = fopen("map", "w");
 				for (int i = 0; i < size; i++){
 			        // fscanf(fp, "%d", map+i);
 			        for (int j = 0; j < size; j++) {
-				        fprintf(fp, "%d ", map[j][i]);
+				        fprintf(fp, "%3d ", map[j][i]);
 				        // printf("%3d", map[j][i]);
 			    	}
 			    	fprintf(fp, "\n");
@@ -115,7 +117,7 @@ int main(int argc, char* argv[]) {		// arg: size
 	    // printf("\n");
 
 	    if ( life <= 0 ){
-	    	// printf("\nBang-bang you'r dead\n");
+	    	printf("Bang-bang you'r dead\n");
 	    	break;
 	    }
 	}    
