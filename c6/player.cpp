@@ -47,7 +47,8 @@ int main(int argc, char* argv[]) {		// arg: size
 	    switch (dir) {
 	    	case 0:
 	    		if (y == 0){
-	    			printf("Done! With score %d\n", life);
+	    			// printf("%d ", getpid());
+	    			// printf("Done! With score %d\n", life);
 	    			return (life);
 	    		}
 	    		else {
@@ -60,7 +61,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 1:
 	    		if (y == size - 1){
-	    			printf("Done! With score %d\n", life);
+	    			// printf("%d ", getpid());
+	    			// printf("Done! With score %d\n", life);
 	    			return (life);
 	    		}
 	    		else {
@@ -73,7 +75,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 2:
 	    		if (x == 0){
-	    			printf("Done! With score %d\n", life);
+	    			// printf("%d ", getpid());
+	    			// printf("Done! With score %d\n", life);
 	    			return (life);
 	    		}
 	    		else {
@@ -86,7 +89,8 @@ int main(int argc, char* argv[]) {		// arg: size
 
 	    	case 3:
 	    		if (x == (size - 1)){
-	    			printf("Done! With score %d\n", life);
+	    			// printf("%d ", getpid());
+	    			// printf("Done! With score %d\n", life);
 	    			return (life);
 	    		}
 	    		else {
@@ -113,11 +117,13 @@ int main(int argc, char* argv[]) {		// arg: size
 			    }
 
 	    fclose(fp);
+	    usleep(100);
 
 	    // printf("\n");
 
 	    if ( life <= 0 ){
-	    	printf("Bang-bang you'r dead\n");
+	    	// printf("%d ", getpid());
+	    	// printf("Bang-bang you'r dead\n");
 	    	break;
 	    }
 	}    
