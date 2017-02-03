@@ -49,6 +49,9 @@ int main(int argc, char* argv[]) {		// arg: size
 	    		if (y == 0){
 	    			// printf("%d ", getpid());
 	    			// printf("Done! With score %d\n", life);
+	    			char lifestr[6];
+	    			sprintf(lifestr, "%d", life);
+	    			write(atoi(argv[2]), lifestr, 6);
 	    			return (life);
 	    		}
 	    		else {
@@ -63,6 +66,9 @@ int main(int argc, char* argv[]) {		// arg: size
 	    		if (y == size - 1){
 	    			// printf("%d ", getpid());
 	    			// printf("Done! With score %d\n", life);
+	    			char lifestr[6];
+	    			sprintf(lifestr, "%d", life);
+	    			write(atoi(argv[2]), lifestr, 6);
 	    			return (life);
 	    		}
 	    		else {
@@ -77,6 +83,9 @@ int main(int argc, char* argv[]) {		// arg: size
 	    		if (x == 0){
 	    			// printf("%d ", getpid());
 	    			// printf("Done! With score %d\n", life);
+	    			char lifestr[6];
+	    			sprintf(lifestr, "%d", life);
+	    			write(atoi(argv[2]), lifestr, 6);
 	    			return (life);
 	    		}
 	    		else {
@@ -91,6 +100,9 @@ int main(int argc, char* argv[]) {		// arg: size
 	    		if (x == (size - 1)){
 	    			// printf("%d ", getpid());
 	    			// printf("Done! With score %d\n", life);
+	    			char lifestr[6];
+	    			sprintf(lifestr, "%d", life);
+	    			write(atoi(argv[2]), lifestr, 6);
 	    			return (life);
 	    		}
 	    		else {
@@ -122,8 +134,7 @@ int main(int argc, char* argv[]) {		// arg: size
 	    // printf("\n");
 
 	    if ( life <= 0 ){
-	    	// printf("%d ", getpid());
-	    	// printf("Bang-bang you'r dead\n");
+	    	write(atoi(argv[2]), "0", 6);
 	    	break;
 	    }
 	}    
